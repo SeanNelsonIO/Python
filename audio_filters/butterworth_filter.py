@@ -2,12 +2,6 @@ from math import cos, sin, sqrt, tau
 
 from audio_filters.iir_filter import IIRFilter
 
-"""
-Create 2nd-order IIR filters with Butterworth design.
-
-Code based on https://webaudio.github.io/Audio-EQ-Cookbook/audio-eq-cookbook.html
-Alternatively you can use scipy.signal.butter, which should yield the same results.
-"""
 
 
 def make_lowpass(

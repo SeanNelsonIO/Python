@@ -1,19 +1,9 @@
-"""
-Implementation Burke's algorithm (dithering)
-"""
+
 import numpy as np
 from cv2 import destroyAllWindows, imread, imshow, waitKey
 
 
 class Burkes:
-    """
-    Burke's algorithm is using for converting grayscale image to black and white version
-    Source: Source: https://en.wikipedia.org/wiki/Dither
-
-    Note:
-        * Best results are given with threshold= ~1/2 * max greyscale value.
-        * This implementation get RGB image and converts it to greyscale in runtime.
-    """
 
     def __init__(self, input_img, threshold: int):
         self.min_threshold = 0
@@ -36,10 +26,7 @@ class Burkes:
 
     @classmethod
     def get_greyscale(cls, blue: int, green: int, red: int) -> float:
-        """
-        >>> Burkes.get_greyscale(3, 4, 5)
-        3.753
-        """
+
         return 0.114 * blue + 0.587 * green + 0.2126 * red
 
     def process(self) -> None:
@@ -52,12 +39,7 @@ class Burkes:
                 else:
                     self.output_img[y][x] = (255, 255, 255)
                     current_error = greyscale + self.error_table[x][y] - 255
-                """
-                Burkes error propagation (`*` is current pixel):
 
-                                 *          8/32        4/32
-                2/32    4/32    8/32    4/32    2/32
-                """
                 self.error_table[y][x + 1] += int(8 / 32 * current_error)
                 self.error_table[y][x + 2] += int(4 / 32 * current_error)
                 self.error_table[y + 1][x] += int(8 / 32 * current_error)
